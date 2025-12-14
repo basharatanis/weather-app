@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useWeather } from './hooks/useWeather'
+import { SearchBar } from './components/SearchBar'
+import { CurrentWeather } from './components/CurrentWeather'
+import { ForecastList } from './components/ForecastList'
+import { UnitToggle } from './components/UnitToggle'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const weather = useWeather()
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="w-full max-w-md mx-auto p-6 space-y-6">
+      <SearchBar
+        zip={weather.zip}
+        setZip={weather.setZip}
+        onSearch={weather.search}
+      />
+
+      {weather.loading && <p>Loading...</p>}
+      {weather.error && <p className="text-red-500">{weather.error}</p>}
+
+      {weather.data && (
+        <>
+          <CurrentWeather
+            location={weather.data.location}
+            temp={weather.data.current.temp}
+            code={weather.data.current.code}
+            unit={weather.unit}
+          />
+
+          <ForecastList days={weather.data.forecast} unit={weather.unit} />
+
+          <UnitToggle
+            unit={weather.unit}
+            setUnit={weather.setUnit}
+          />
+        </>
+      )}
+    </div>
   )
 }
-
-export default App

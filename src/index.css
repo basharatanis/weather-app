@@ -3,21 +3,98 @@
 /* App background and layout */
 body {
   background-color: #f3f5f8;
+  font-family: sans-serif;
   display: flex;
   justify-content: center;
   padding: 24px;
   min-height: 100vh;
 }
 
+.app-container {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.weather-content {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.weather-content > * {
+  width: 100%;
+}
+
+.current-weather {
+  width: 100%;
+}
+
 .searchBar {
   background-color: #ffffff;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.searchBar input {
+  padding: 4px 12px;
+}
+
+.searchBar input::placeholder {
+  font-size: 14px;
+}
+
+.forecast-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+}
+
+.forecast-card {
+  background-color: #f3f5f8;
+  border-radius: 12px;
+  min-width: 55px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forecast-card .day-label {
+  font-size: 12px;
+}
+
+.weather-panel {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.unit-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.unit-toggle .toggle {
+  margin: 0 12px;
 }
 /* Toggle switch styles (based on StackOverflow CC BY-SA 4.0 snippet) */
 .toggle {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 50px;
+  height: 28px;
 }
 
 .toggle input {
@@ -39,8 +116,8 @@ body {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 20px;
+  width: 20px;
   left: 4px;
   bottom: 4px;
   background-color: #4e2c90;
@@ -55,4 +132,15 @@ body {
 
 input:checked + .slider:before {
   transform: translateX(26px);
+}
+
+/* Temperature text sizing */
+.temp-unit {
+  font-size: 0.55em;
+  vertical-align: super;
+}
+
+.temp-reading-sm {
+  font-size: 18px;
+  font-weight: bold;
 }

@@ -2,7 +2,7 @@ export function UnitToggle({ unit, setUnit }) {
   const isCelsius = unit === 'C'
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="unit-toggle flex items-center justify-center gap-4">
       <span className="text-sm font-medium" style={{ color: isCelsius ? '#9ca3af' : '#4b5563' }}>
         Fahrenheit
       </span>

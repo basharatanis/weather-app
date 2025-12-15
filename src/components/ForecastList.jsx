@@ -2,7 +2,7 @@ import { ForecastDay } from './ForecastDay'
 
 export function ForecastList({ days, unit }) {
   return (
-    <div className="flex justify-between">
+    <div className="forecast-list">
       {days.map(day => (
         <ForecastDay key={day.day} {...day} unit={unit} />
       ))}

@@ -1,16 +1,18 @@
-# React + Vite
+# Weather App (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simple ZIP-based weather lookup using the Open-Meteo API. Fetches current conditions and a 5‑day forecast starting from today.
 
-Currently, two official plugins are available:
+## Run the project
+1) Install deps: `npm install`
+2) Start dev server: `npm run dev`
+3) Open the shown local URL in your browser
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup notes
+- Uses Open-Meteo geocoding + forecast APIs (no API key needed).
+- ZIP search is US-focused; the geocoder falls back to the first match if a US match isn’t found.
+- Units toggle refetches data in °F/°C to avoid client-side conversion drift.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Assumptions / decisions
+- Show 5 forecast entries beginning with “today” (uses the API’s current time to align daily data).
+- Display city/state from geocoding response; uppercase for the header.
+- Lightweight styling via Tailwind base plus a few custom CSS rules in `src/index.css`.

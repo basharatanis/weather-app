@@ -28,6 +28,12 @@ export async function fetchWeatherByZip(zip, unit) {
 
   const weatherData = await weatherRes.json()
 
+  const timeZone = weatherData.timezone || 'UTC'
+  const todayIso = new Date().toLocaleDateString('en-CA', { timeZone }) // YYYY-MM-DD
+  const startIndex =
+    weatherData.daily.time.findIndex(d => d >= todayIso) ?? 0
+  const start = startIndex >= 0 ? startIndex : 0
+
   // Normalize data for UI
   return {
     location: `${name}, ${admin1}`,
@@ -35,12 +41,16 @@ export async function fetchWeatherByZip(zip, unit) {
       temp: Math.round(weatherData.current.temperature_2m),
       code: weatherData.current.weather_code,
     },
-    forecast: weatherData.daily.time.slice(0, 5).map((date, i) => ({
-      day: new Date(date).toLocaleDateString('en-US', {
-        weekday: 'short',
-      }),
-      temp: Math.round(weatherData.daily.temperature_2m_max[i]),
-      code: weatherData.daily.weather_code[i],
-    })),
+    forecast: weatherData.daily.time.slice(start, start + 5).map((date, i) => {
+      const idx = start + i
+      return {
+        day: new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
+          weekday: 'short',
+          timeZone,
+        }),
+        temp: Math.round(weatherData.daily.temperature_2m_max[idx]),
+        code: weatherData.daily.weather_code[idx],
+      }
+    }),
   }
 }

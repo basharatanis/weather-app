@@ -3,7 +3,7 @@ export function UnitToggle({ unit, setUnit }) {
 
   return (
     <div className="unit-toggle flex items-center justify-center gap-4">
-      <span className="text-sm font-medium" style={{ color: isCelsius ? '#9ca3af' : '#4b5563' }}>
+      <span className="text-sm font-medium unit-label">
         Fahrenheit
       </span>
 
@@ -17,7 +17,7 @@ export function UnitToggle({ unit, setUnit }) {
         <span className="slider" />
       </label>
 
-      <span className="text-sm font-medium" style={{ color: isCelsius ? '#4b5563' : '#9ca3af' }}>
+      <span className="text-sm font-medium unit-label">
         Celsius
       </span>
     </div>
